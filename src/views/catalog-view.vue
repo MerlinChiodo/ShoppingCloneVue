@@ -1,27 +1,31 @@
 <template>
-    <h1>Catalog</h1>
+  <h1>Catalog</h1>
+  <div v-if="productsStore && productsStore.products">
+    <ul>
+    <li 
+      class="product"
+      v-for="product in productsStore.products" :key="product.id"
+    >
+    <strong> {{ product.title }}</strong>
+      <!-- Hier können Sie product-Daten verwenden -->
+  </li>
+</ul>
+  </div>
 </template>
-
-<script lang="ts">
-import {defineComponent, ref} from "vue";
-
-export default defineComponent({
-  components: {  },
-  setup() {
-    const todo = ref('')
-    return {
-      todo
-    }
-  }
-})
-</script>
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
+import { useProductsStore } from "../stores/products";
 
 
-onMounted( () => {
+const productsStore = useProductsStore();
+
+onMounted( async () => {
   console.log("MOUNTED >>>>>>>>>>")
+
+  await productsStore.fetchProductsfromDB();
+  console.log("Products fetched")
+  
 })
 
 
