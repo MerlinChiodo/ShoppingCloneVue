@@ -5,6 +5,8 @@ export interface Product {
   title: string
   description: string
   thumbnail: string
+  price: number
+  discountPercentage: number
   // other properties
 }
 
